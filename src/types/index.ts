@@ -1,8 +1,14 @@
 export interface ApiConfig {
     apiKey: string;
+    accountId: string;
     baseUrl: string;
     apiVersion: string;
     maxRequestsPerMinute: number;
+}
+
+export interface RateLimitInfo {
+    requestCount: number;
+    lastResetTime: number;
 }
 
 export interface ApiResponse<T> {
@@ -29,6 +35,8 @@ export interface Coin {
     coin: string;
     name: string;
     hasMemo: boolean;
+    mainnet: string;
+    network: string[];
     fixedOnly: string[] | boolean;
     variableOnly: string[] | boolean;
     tokenDetails: {
@@ -41,10 +49,9 @@ export interface Coin {
     settleOffline: string[] | boolean;
 }
 
-type ImageType = 'image/svg+xml' | 'image/png';
-
 export interface CoinIcon {
-    type: ImageType;
+    url: string;
+    type: string;
 }
 
 export interface Permission {
@@ -112,6 +119,7 @@ export interface Shift {
     expiresAt: string;
     status: string;
     averageShiftSeconds: string;
+    issue?: string;
 }
 
 export interface FixedShiftSingle extends Shift {
@@ -124,7 +132,6 @@ export interface FixedShiftSingle extends Shift {
     settleHash?: string;
     depositReceivedAt?: string;
     rate: string;
-    issue: string;
 }
 
 export interface VariableShiftSingle extends Shift {
@@ -249,10 +256,3 @@ export interface SetRefundAddressBody {
     address: string;
     memo?: string;
 }
-
-// function validateRequestQuoteBody(body: RequestQuoteBody): boolean {
-//     return (
-//         !(body.depositAmount === null && body.settleAmount === null) &&
-//         !(body.depositAmount !== null && body.settleAmount !== null)
-//     );
-// }
