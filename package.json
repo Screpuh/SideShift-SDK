@@ -1,6 +1,6 @@
 {
     "name": "sideshift-node-sdk",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "TypeScript Wrapper for SideShift.ai API",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
