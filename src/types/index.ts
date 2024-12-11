@@ -1,6 +1,5 @@
 export interface ApiConfig {
     apiKey: string;
-    accountId: string;
     baseUrl: string;
     apiVersion: string;
     maxRequestsPerMinute: number;
@@ -255,4 +254,29 @@ export interface SetRefundAddressVariableShiftResponse extends Shift {
 export interface SetRefundAddressBody {
     address: string;
     memo?: string;
+}
+
+export interface CheckoutResponse {
+    id: string;
+    settleCoin: string;
+    settleNetwork: string;
+    settleAddress: string;
+    settleMemo?: string;
+    settleAmount: string;
+    updatedAt: string;
+    createdAt: string;
+    affiliateId: string;
+    successUrl: string;
+    cancelUrl: string;
+}
+
+export interface CheckoutRequest {
+    settleCoin: string;
+    settleNetwork: string;
+    settleAddress: string;
+    settleMemo?: string;
+    settleAmount: string;
+    affiliateId: string;
+    successUrl: string;
+    cancelUrl: string;
 }

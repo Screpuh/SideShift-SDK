@@ -2,6 +2,8 @@ import {
     Account,
     ApiConfig,
     ApiResponse,
+    CheckoutRequest,
+    CheckoutResponse,
     Coin,
     CoinIcon,
     CreateFixedShiftBody,
@@ -27,12 +29,11 @@ export class SideShiftClient {
     private config: ApiConfig;
     private rateLimiter: Record<string, RateLimitInfo> = {};
 
-    constructor(accountId: string, apiKey: string) {
+    constructor(apiKey: string) {
         this.config = {
             baseUrl: 'https://sideshift.ai',
             apiVersion: 'v2',
             maxRequestsPerMinute: 60,
-            accountId: accountId,
             apiKey: apiKey,
         };
     }
@@ -280,6 +281,15 @@ export class SideShiftClient {
     }
 
     /**
+     * Returns the data of a checkout created using POST /checkout endpoint.
+     *
+     * @returns
+     */
+    public getCheckout(checkoutId: string): Promise<ApiResponse<CheckoutResponse>> {
+        return this.get<CheckoutResponse>(`/checkout/${checkoutId}`);
+    }
+
+    /**
      * For fixed rate shifts, a quote should be requested first.
      * A quote can be requested for either a depositAmount or a settleAmount.
      *
@@ -342,6 +352,14 @@ export class SideShiftClient {
         return this.post<
             SetRefundAddressFixedShiftResponse | SetRefundAddressVariableShiftResponse
         >('/shifts/fixed/multiple', body, customHeaders);
+    }
+
+    public postCreateCheckout(
+        body: CheckoutRequest,
+        ip: string
+    ): Promise<ApiResponse<CheckoutResponse>> {
+        const customHeaders = { 'x-sideshift-secret': `${this.config.apiKey}`, 'x-user-ip': ip };
+        return this.post<CheckoutResponse>('/checkout', body, customHeaders);
     }
 
     public async get<T>(endpoint: string, headers?: HeadersInit): Promise<ApiResponse<T>> {
