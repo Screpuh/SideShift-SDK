@@ -4,7 +4,7 @@ describe('SideShiftClient', () => {
     let sideShiftClient: SideShiftClient;
 
     beforeEach(() => {
-        sideShiftClient = new SideShiftClient('your-account-id', 'your-api-privatekey');
+        sideShiftClient = new SideShiftClient('your-api-privatekey');
     });
 
     test('should create an instance of ApiClient', () => {
