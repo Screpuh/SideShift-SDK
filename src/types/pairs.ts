@@ -2,7 +2,7 @@ export interface Pair {
     min: string;
     max: string;
     rate: string;
-    depositCoint: string;
+    depositCoin: string;
     settleCoin: string;
     depositNetwork: string;
     settleNetwork: string;
