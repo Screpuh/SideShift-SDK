@@ -5,40 +5,47 @@ A TypeScript client library for the SideShift.ai API.
 ## Installation
 
 ```bash
-npm sideshift-node-sdk
+npm install sideshift-node-sdk
 ```
 
 ## Quick Start
 
 ### 1. Setup Environment Variables
 
-Copy the example environment file:
+Add the following variables to your .env file:
 
-```bash
-cp .env.example .env
 ```
+# Required: Your x-sideshift-secret (needed for private endpoints)
+SIDESHIFT_PRIVATE_KEY=your_private_key_here
 
-Then, update `.env` with your credentials:
+# Required: Your affiliate/account ID (used as affiliateId)
+SIDESHIFT_AFFILIATE_ID=your_affiliate_id_here
 
-- `PRIVATE_KEY`: Your `x-sideshift-secret`
-- `AFFILIATE_ID`: Your `accountId` (used as the `affiliateId`)
+# Optional: API base URL (default is https://sideshift.ai/api/v2)
+SIDESHIFT_BASE_URL=https://sideshift.ai/api/v2
+
+# Optional: Global default rate limit (default is 60 req/min)
+SIDESHIFT_RATE_LIMIT=60
+
+# Optional: Enable verbose logging
+SIDESHIFT_VERBOSE=false
+```
 
 #### How to get your credentials:
 
 1. Visit [sideshift.ai](https://sideshift.ai)
 2. Create a shift on the site **or** visit the [Account page](https://sideshift.ai/account) — this will automatically create an account
 3. Copy your:
-
-   - **Private Key** (`x-sideshift-secret`)
-   - **Account ID** (`affiliateId`)
+    - **Private Key** (`x-sideshift-secret`)
+    - **Account ID** (`affiliateId`)
 
 ---
 
 ### 2. Initialize the Client
 
 ```typescript
-import { SideShiftClient } from "../SideShiftClient";
-import { loadSideShiftConfig } from "../utils/loadSideShiftConfig";
+import { SideShiftClient } from '../SideShiftClient';
+import { loadSideShiftConfig } from '../utils/loadSideShiftConfig';
 
 const config = loadSideShiftConfig();
 const sideShiftClient = new SideShiftClient(config);
@@ -55,10 +62,10 @@ console.log(coins.data);
 
 // Create a fixed shift
 const body = {
-  settleAddress: "settle-address",
-  settleMemo: "settle-memo",
-  quoteId: "quote-id",
-  refundAddress: "refund-address",
+    settleAddress: 'settle-address',
+    settleMemo: 'settle-memo',
+    quoteId: 'quote-id',
+    refundAddress: 'refund-address',
 };
 const fixedShift = await sideShiftClient.order.postFixedRateShift(body);
 console.log(fixedShift.data);
@@ -74,10 +81,10 @@ Type definitions strictly follow the official API specification.
 ```typescript
 // Example with type annotations
 const quoteBody: QuoteBody = {
-  depositCoin: "BTC",
-  settleCoin: "ETH",
-  depositAmount: "0.01",
-  settleAmount: null,
+    depositCoin: 'BTC',
+    settleCoin: 'ETH',
+    depositAmount: '0.01',
+    settleAmount: null,
 };
 
 const response: ApiResponse<Quote> = await sideShiftAPI.orders.postRequestQuote(quoteBody);
@@ -89,10 +96,10 @@ All HTTP API responses follow the `ApiResponse` interface:
 
 ```typescript
 export interface ApiResponse<T> {
-  success: boolean;
-  data: T | null;
-  error?: string;
-  status?: number;
+    success: boolean;
+    data: T | null;
+    error?: string;
+    status?: number;
 }
 ```
 
@@ -152,7 +159,7 @@ const body = {
   quoteId: "quote-id",
   refundAddress: "refund-address",
 };
-const fixedShift = await sideShiftClient.order.postFixedRateShift(body, userIP);
+const fixedShift = await sideShiftClient.order.postFixedRateShift(body, userIp);
 console.log(fixedShift.data);
 
 ```
@@ -161,7 +168,7 @@ console.log(fixedShift.data);
 
 - **TypeScript Support**: Complete type definitions for all API requests and responses
 - **REST API Client**: Access to all SideShift.ai endpoints (public and private)
-- **Authentication**: Secure API key and secret handling
+- **Authentication**: Secure Private Key and Account Id handling
 - **Error Handling**: Comprehensive error handling with detailed error messages
 
 ## API Documentation

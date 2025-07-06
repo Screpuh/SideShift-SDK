@@ -5,16 +5,16 @@ import { SideShiftConfig } from './types';
 
 export class SideShiftClient {
     // Public APIs
-    public coins: CoinsAPI;
-    public shifts: ShiftsAPI;
-    public stats: StatsAPI;
-    public checkout: CheckoutAPI;
+    public readonly coins: CoinsAPI;
+    public readonly shifts: ShiftsAPI;
+    public readonly stats: StatsAPI;
+    public readonly checkout: CheckoutAPI;
 
     // Private APIs
-    public pairs: PairsAPI;
-    public account: AccountAPI;
-    public orders: OrdersAPI;
-    public createCheckout: CreateCheckoutAPI;
+    public readonly pairs: PairsAPI;
+    public readonly account: AccountAPI;
+    public readonly orders: OrdersAPI;
+    public readonly createCheckout: CreateCheckoutAPI;
 
     constructor(config: SideShiftConfig) {
         const httpHandler = new SideShiftHttpHandler(config);

@@ -1,0 +1,1 @@
+export { loadSideShiftConfig } from './loadSideShiftConfig';
